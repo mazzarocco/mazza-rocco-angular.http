@@ -1,0 +1,5 @@
+<h2>La foto astronomica del giorno</h2>
+<div class="row g-2 mb-3"><div class="col-auto"><input #giorno type="date" class="form-control" aria-label="Data della foto"></div><div class="col-auto"><button type="button" class="btn btn-primary" (click)="carica(giorno.value)" [disabled]="loading()">Mostra</button></div></div>
+@if (loading()) { <div class="spinner-border text-primary" role="status"></div> }
+@if (errore()) { <div class="alert alert-danger">{{ errore() }}</div> }
+@if (apod(); as a) { <div class="card">@if (a.media_type === 'image') { <img [src]="a.hdurl || a.url" [alt]="a.title" class="card-img-top" loading="eager" decoding="async"> } @else { <div class="card-body"><a [href]="a.url" target="_blank" rel="noopener">Oggi il contenuto non è un'immagine: aprilo in una nuova scheda</a></div> }<div class="card-body"><h3 class="card-title h5">{{ a.title }}</h3><p class="text-body-secondary">{{ a.date }} @if (a.copyright) { <span>, © {{ a.copyright }}</span> }</p><p class="card-text">{{ a.explanation }}</p></div></div> }
